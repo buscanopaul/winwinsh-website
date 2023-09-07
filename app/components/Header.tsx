@@ -3,6 +3,10 @@ import {Suspense} from 'react';
 import type {LayoutProps} from './Layout';
 import {Image} from '@shopify/hydrogen';
 import Logo from '../../public/winwish_logo.png';
+import {
+  ShoppingBagIcon,
+  MagnifyingGlassCircleIcon,
+} from '@heroicons/react/24/outline';
 
 type HeaderProps = Pick<LayoutProps, 'header' | 'cart' | 'isLoggedIn'>;
 
@@ -114,15 +118,20 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   return (
     <a href="#search-aside" className="text-white">
-      Search
+      <MagnifyingGlassCircleIcon className="h-5 w-5 text-white" />
     </a>
   );
 }
 
 function CartBadge({count}: {count: number}) {
   return (
-    <a href="#cart-aside" className="text-white">
-      Cart {count}
+    <a href="#cart-aside" className="text-white relative">
+      <ShoppingBagIcon className="h-5 w-5 text-white" />
+      {count !== 0 && (
+        <div className="absolute border-2 border-white p-1 rounded-full w-4 h-4 top-3 left-4 flex items-center justify-center">
+          <p className="text-center text-[7px]">{count}</p>
+        </div>
+      )}
     </a>
   );
 }
