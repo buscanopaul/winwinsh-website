@@ -128,7 +128,7 @@ function CartBadge({count}: {count: number}) {
     <a href="#cart-aside" className="text-white relative">
       <ShoppingBagIcon className="h-5 w-5 text-white" />
       {count !== 0 && (
-        <div className="absolute border-2 border-white p-1 rounded-full w-4 h-4 top-3 left-4 flex items-center justify-center">
+        <div className="absolute border-2 border-white p-1 rounded-full w-3 h-3 -top-1 left-3 flex items-center justify-center">
           <p className="text-center text-[7px]">{count}</p>
         </div>
       )}

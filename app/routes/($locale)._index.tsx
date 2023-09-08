@@ -61,7 +61,12 @@ function HomeHeader() {
         </Link>
       </div>
       <div className="md:w-1/2 w-full flex md:justify-end justify-center my-20 md:mt-0">
-        <img src={Header} width={300} height={300} />
+        <img
+          src={Header}
+          width={300}
+          height={300}
+          className="drop-shadow-2xl"
+        />
       </div>
     </div>
   );
@@ -145,7 +150,12 @@ function Services() {
       </p>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2 w-full items-center flex flex-col text-center">
-          <img src={Maintenance} width={350} height="100%" className="mb-10" />
+          <img
+            src={Maintenance}
+            width={350}
+            height="100%"
+            className="mb-10 drop-shadow-2xl"
+          />
           <h5 className="mb-5">Preventive Maintenance Schedule</h5>
           <p className="max-w-md">
             Every commit gets its own preview deployment, defaulting to private
@@ -153,7 +163,12 @@ function Services() {
           </p>
         </div>
         <div className="md:w-1/2 w-full mt-20 md:mt-0 items-center flex flex-col text-center">
-          <img src={Detailing} width={350} height="100%" className="mb-10" />
+          <img
+            src={Detailing}
+            width={350}
+            height="100%"
+            className="mb-10 drop-shadow-2xl"
+          />
           <h5 className="mb-5">Auto Detailing (Interior & Deep Exterior)</h5>
           <p className="max-w-md">
             Tied directly to a branch, custom environments get their own
@@ -181,7 +196,7 @@ function Brands() {
         </Link>
       </div>
       <div className="md:w-[75%] w-full">
-        <img src={Branded} width={900} />
+        <img src={Branded} width={900} className="drop-shadow-md" />
       </div>
     </div>
   );

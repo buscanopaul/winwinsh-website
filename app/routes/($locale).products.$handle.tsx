@@ -11,6 +11,7 @@ import type {
   ProductFragment,
   ProductVariantsQuery,
   ProductVariantFragment,
+  RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 
 import {
@@ -26,6 +27,7 @@ import type {
   SelectedOption,
 } from '@shopify/hydrogen/storefront-api-types';
 import {getVariantUrl} from '~/utils';
+import {CheckCircleIcon} from '@heroicons/react/24/solid';
 
 export const meta: V2_MetaFunction = ({data}) => {
   return [{title: `Hydrogen | ${data.product.title}`}];
@@ -34,6 +36,7 @@ export const meta: V2_MetaFunction = ({data}) => {
 export async function loader({params, request, context}: LoaderArgs) {
   const {handle} = params;
   const {storefront} = context;
+  const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
 
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -85,7 +88,7 @@ export async function loader({params, request, context}: LoaderArgs) {
     variables: {handle},
   });
 
-  return defer({product, variants});
+  return defer({product, variants, recommendedProducts});
 }
 
 function redirectToFirstVariant({
@@ -112,16 +115,35 @@ function redirectToFirstVariant({
 }
 
 export default function Product() {
-  const {product, variants} = useLoaderData<typeof loader>();
+  const {product, variants, recommendedProducts} =
+    useLoaderData<typeof loader>();
   const {selectedVariant} = product;
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <ProductMain
-        selectedVariant={selectedVariant}
-        product={product}
-        variants={variants}
-      />
+    <div className="bg-[#0E1D2B] bg-[length:10vw_10vw] background-grid-gray border-t-[1px] border-gray-500">
+      <div className="max-w-6xl mx-auto px-5">
+        <div className="relative items-start flex flex-col md:flex-row gap-20 py-20">
+          <ProductImage image={selectedVariant?.image} />
+          <div className="md:w-1/2 w-full">
+            <ProductTitle product={product} />
+            <ProductMain
+              selectedVariant={selectedVariant}
+              product={product}
+              variants={variants}
+            />
+          </div>
+        </div>
+      </div>
+      <Divider />
+      <RecommendedProducts products={recommendedProducts} />
+    </div>
+  );
+}
+
+function ProductTitle({product}: {product: ProductFragment}) {
+  const {title} = product;
+  return (
+    <div className="relative">
+      <h2 className="text-white text-4xl">{title}</h2>
     </div>
   );
 }
@@ -131,7 +153,7 @@ function ProductImage({image}: {image: ProductVariantFragment['image']}) {
     return <div className="product-image" />;
   }
   return (
-    <div className="product-image">
+    <div className="relative">
       <Image
         alt={image.altText || 'Product Image'}
         aspectRatio="1/1"
@@ -152,12 +174,9 @@ function ProductMain({
   selectedVariant: ProductFragment['selectedVariant'];
   variants: Promise<ProductVariantsQuery>;
 }) {
-  const {title, descriptionHtml} = product;
+  const {title, descriptionHtml, description} = product;
   return (
-    <div className="product-main">
-      <h1>{title}</h1>
-      <ProductPrice selectedVariant={selectedVariant} />
-      <br />
+    <div className="relative">
       <Suspense
         fallback={
           <ProductForm
@@ -167,6 +186,16 @@ function ProductMain({
           />
         }
       >
+        <div className="flex items-center text-white relative mb-2">
+          <CheckCircleIcon className="h-4 w-4 text-white mr-1" />
+          <ProductPrice selectedVariant={selectedVariant} />
+        </div>
+        <div className="flex items-start text-white relative">
+          <p>
+            <CheckCircleIcon className="h-4 w-4 text-white mr-1" />
+          </p>
+          <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        </div>
         <Await
           errorElement="There was a problem loading product variants"
           resolve={variants}
@@ -180,14 +209,6 @@ function ProductMain({
           )}
         </Await>
       </Suspense>
-      <br />
-      <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
     </div>
   );
 }
@@ -201,8 +222,6 @@ function ProductPrice({
     <div className="product-price">
       {selectedVariant?.compareAtPrice ? (
         <>
-          <p>Sale</p>
-          <br />
           <div className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>
@@ -261,19 +280,22 @@ function ProductForm({
 function ProductOptions({option}: {option: VariantOption}) {
   return (
     <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
-      <div className="product-options-grid">
+      <div className="flex items-center text-white">
+        <CheckCircleIcon className="h-4 w-4 text-white mr-1" />
+        <h5 className="pt-2">{option.name}</h5>
+      </div>
+      <div className="product-options-grid ml-5">
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="product-options-item"
+              className="product-options-item text-white"
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
               to={to}
               style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
+                border: isActive ? '1px solid white' : '1px solid transparent',
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
@@ -310,6 +332,7 @@ function AddToCartButton({
             value={JSON.stringify(analytics)}
           />
           <button
+            className="ml-5 bg-[#FED550] border-4 border-white py-2 px-4 text-center"
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
@@ -319,6 +342,60 @@ function AddToCartButton({
         </>
       )}
     </CartForm>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="bg-white px-5 bg-[length:20vw_20vw] background-grid py-20 pt-32">
+      <div className="max-w-6xl mx-auto text-center text-5xl font-bold">
+        Experience Automotive Excellence.
+      </div>
+    </div>
+  );
+}
+
+function RecommendedProducts({
+  products,
+}: {
+  products: Promise<RecommendedProductsQuery>;
+}) {
+  return (
+    <div className="relative bg-white px-5 bg-[length:20vw_20vw] background-grid py-20">
+      <div className="max-w-6xl mx-auto">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Await resolve={products}>
+            {({products}) => (
+              <div className="recommended-products-grid">
+                {products.nodes.map((product) => (
+                  <Link
+                    key={product.id}
+                    className="recommended-product"
+                    to={`/products/${product.handle}`}
+                  >
+                    <Image
+                      data={product.images.nodes[0]}
+                      aspectRatio="1/1"
+                      sizes="(min-width: 45em) 20vw, 50vw"
+                      className="drop-shadow-2xl"
+                    />
+                    <h4 className="text-black">{product.title}</h4>
+                    <small className="flex text-black gap-[3px]">
+                      &#8369;
+                      <Money
+                        data={product.priceRange.minVariantPrice}
+                        className="text-black"
+                        withoutCurrency
+                      />
+                    </small>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </Await>
+        </Suspense>
+      </div>
+    </div>
   );
 }
 
@@ -423,4 +500,35 @@ const VARIANTS_QUERY = `#graphql
       ...ProductVariants
     }
   }
+` as const;
+
+const RECOMMENDED_PRODUCTS_QUERY = `#graphql
+  fragment RecommendedProduct on Product {
+    id
+    title
+    handle
+    priceRange {
+      minVariantPrice {
+        amount 
+        currencyCode
+      }
+    }
+    images(first: 1) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
+  }
+  query RecommendedProducts ($country: CountryCode, $language: LanguageCode) 
+    @inContext(country: $country, language: $language) {
+      products(first: 4, sortKey: UPDATED_AT, reverse: true) {
+        nodes {
+          ...RecommendedProduct
+        }
+      }
+    }
 ` as const;

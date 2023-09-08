@@ -15,6 +15,10 @@ body {
     linear-gradient(to bottom, #2e2e2e 1px, transparent 1px);
 }
 
+.product-description-bullet {
+  list-style: disc;
+}
+
 h1,
 h2,
 p {
