@@ -54,7 +54,7 @@ function HomeHeader() {
           shape. From brakes and filters to batteries and more, our inventory is
           stocked with the finest products to meet your specific needs.
         </p>
-        <Link to={'/'}>
+        <Link to={'/#products'}>
           <p className="bg-[#FED550] max-w-[300px] text-center mt-10 text-xl p-3 border-[#0E1D2B] border-4 text-black font-bold underline">
             Start Shopping Now!
           </p>
@@ -99,7 +99,7 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery>;
 }) {
   return (
-    <div className="recommended-products relative">
+    <div className="recommended-products relative" id="products">
       <div className="bg-[#212326] absolute top-0 left-0 w-full h-full background-grid-gray bg-[length:10vw_10vw]" />
       <div className="max-w-6xl mx-auto px-5 py-20 relative">
         <h2 className="text-white text-2xl mb-10 font-primary tracking-wider">
@@ -195,9 +195,9 @@ function Brands() {
         <p className="mb-6 text-center md:text-left">
           Explore Our Trusted Car Brands and Genuine Parts Selection.
         </p>
-        <Link to={`/`}>
+        <Link to={`/pages/contact`}>
           <p className="bg-[#FED550] border-4 border-black py-2 px-4 text-center font-bold underline">
-            Explore Hydro Apps
+            Contact Us
           </p>
         </Link>
       </div>
