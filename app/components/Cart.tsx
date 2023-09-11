@@ -34,7 +34,6 @@ function CartDetails({layout, cart}: CartMainProps) {
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
       )}
@@ -74,7 +73,7 @@ function CartLineItem({
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line">
+    <li key={id} className="cart-line border-b ml-2">
       {image && (
         <Image
           alt={title}
@@ -83,10 +82,11 @@ function CartLineItem({
           height={100}
           loading="lazy"
           width={100}
+          className="drop-shadow-xl"
         />
       )}
 
-      <div>
+      <div className="w-full">
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -121,9 +121,11 @@ function CartCheckoutActions({checkoutUrl}: {checkoutUrl: string}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
+    <div className="pt-5">
       <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+        <p className="bg-[#FED550] border-black border-4 text-center p-3">
+          Continue to Checkout &rarr;
+        </p>
       </a>
       <br />
     </div>
@@ -144,9 +146,8 @@ export function CartSummary({
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
       <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
+        <dt className="pr-1 font-bold">Subtotal:</dt>
         <dd>
           {cost?.subtotalAmount?.amount ? (
             <Money data={cost?.subtotalAmount} />
@@ -167,7 +168,9 @@ function CartLineRemoveButton({lineIds}: {lineIds: string[]}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">Remove</button>
+      <button type="submit" className="text-xs text-red-500 active:opacity-50">
+        Remove
+      </button>
     </CartForm>
   );
 }
@@ -179,30 +182,36 @@ function CartLineQuantity({line}: {line: CartLine}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantiy">
+    <div className="cart-line-quantiy flex-col w-full">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <button
-          aria-label="Decrease quantity"
-          disabled={quantity <= 1}
-          name="decrease-quantity"
-          value={prevQuantity}
-        >
-          <span>&#8722; </span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-        <button
-          aria-label="Increase quantity"
-          name="increase-quantity"
-          value={nextQuantity}
-        >
-          <span>&#43;</span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} />
+      <div className="flex flex-row items-center justify-between mt-2">
+        <div className="flex flex-row">
+          <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+            <button
+              aria-label="Decrease quantity"
+              disabled={quantity <= 1}
+              name="decrease-quantity"
+              value={prevQuantity}
+            >
+              <span className="border-2 px-2 active:bg-[#FED550] active:border-[#FED550]">
+                &#8722;{' '}
+              </span>
+            </button>
+          </CartLineUpdateButton>
+          <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+            <button
+              aria-label="Increase quantity"
+              name="increase-quantity"
+              value={nextQuantity}
+            >
+              <span className="border-2 px-2 active:bg-[#FED550] active:border-[#FED550] border-l-0">
+                &#43;
+              </span>
+            </button>
+          </CartLineUpdateButton>
+        </div>
+        <CartLineRemoveButton lineIds={[lineId]} />
+      </div>
     </div>
   );
 }
@@ -242,7 +251,7 @@ export function CartEmpty({
   layout?: CartMainProps['layout'];
 }) {
   return (
-    <div hidden={hidden}>
+    <div hidden={hidden} className="h-40">
       <br />
       <p>
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
@@ -256,6 +265,7 @@ export function CartEmpty({
             window.location.href = '/collections';
           }
         }}
+        className="bg-[#FED550] border-black border-4 text-center mt-2 p-3"
       >
         Continue shopping →
       </Link>
