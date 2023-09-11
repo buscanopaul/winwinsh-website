@@ -5,4 +5,11 @@ import typographyPlugin from '@tailwindcss/typography';
 export default {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   plugins: [formsPlugin, typographyPlugin],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-druk)'],
+      },
+    },
+  },
 };

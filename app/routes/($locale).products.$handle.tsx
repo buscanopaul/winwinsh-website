@@ -143,7 +143,9 @@ function ProductTitle({product}: {product: ProductFragment}) {
   const {title} = product;
   return (
     <div className="relative">
-      <h2 className="text-white text-4xl">{title}</h2>
+      <h2 className="text-white text-2xl font-primary tracking-wider">
+        {title}
+      </h2>
     </div>
   );
 }
@@ -192,7 +194,7 @@ function ProductMain({
         </div>
         <div className="flex items-start text-white relative">
           <p>
-            <CheckCircleIcon className="h-4 w-4 text-white mr-1" />
+            <CheckCircleIcon className="h-4 w-4 text-white mr-1 pt-1" />
           </p>
           <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
         </div>
@@ -332,7 +334,7 @@ function AddToCartButton({
             value={JSON.stringify(analytics)}
           />
           <button
-            className="ml-5 bg-[#FED550] border-4 border-white py-2 px-4 text-center"
+            className="ml-5 bg-[#FED550] border-4 border-white py-2 px-4 text-center underline font-bold"
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
@@ -348,7 +350,7 @@ function AddToCartButton({
 function Divider() {
   return (
     <div className="bg-white px-5 bg-[length:20vw_20vw] background-grid py-20 pt-32">
-      <div className="max-w-6xl mx-auto text-center text-5xl font-bold">
+      <div className="max-w-6xl mx-auto text-center text-3xl font-primary tracking-wider">
         Experience Automotive Excellence.
       </div>
     </div>
@@ -379,7 +381,7 @@ function RecommendedProducts({
                       sizes="(min-width: 45em) 20vw, 50vw"
                       className="drop-shadow-2xl"
                     />
-                    <h4 className="text-black">{product.title}</h4>
+                    <h4 className="text-black font-bold">{product.title}</h4>
                     <small className="flex text-black gap-[3px]">
                       &#8369;
                       <Money

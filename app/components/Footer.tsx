@@ -13,7 +13,9 @@ export function Footer({menu}: FooterQuery) {
           <h3 className="text-white font-bold">WinWish Auto Shop</h3>
           <h5 className="text-sm text-white font-bold">EST | 2022</h5>
           <img src={Tools} width={30} height={30} className="mb-5" />
-          <h2 className="text-white text-5xl">(02) 358 7135</h2>
+          <h2 className="text-white text-4xl font-primary tracking-wider">
+            (02) 358 7135
+          </h2>
           <div className="text-white flex flex-col items-center mb-20">
             <p className="text-[10px]">MONDAY - FRIDAY 7:00 AM - 7:00 PM</p>
             <p className="text-[10px]">

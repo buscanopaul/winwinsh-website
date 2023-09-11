@@ -46,8 +46,8 @@ function HomeHeader() {
   return (
     <div className="flex flex-col md:flex-row max-w-6xl px-5 mx-auto pt-20">
       <div className="pt-10 md:w-1/2 w-full">
-        <h2 className="text-6xl">WinWish</h2>
-        <h2 className="text-6xl">Auto Shop</h2>
+        <h2 className="text-5xl font-primary tracking-wider">WinWish</h2>
+        <h2 className="text-5xl font-primary tracking-wider">Auto Shop</h2>
         <p className="pt-5">
           In addition to our exceptional repair services, we offer an extensive
           selection of premium auto parts to help you keep your vehicle in top
@@ -55,7 +55,7 @@ function HomeHeader() {
           stocked with the finest products to meet your specific needs.
         </p>
         <Link to={'/'}>
-          <p className="bg-[#FED550] max-w-[300px] text-center mt-10 text-xl p-3 border-[#0E1D2B] border-4 text-black">
+          <p className="bg-[#FED550] max-w-[300px] text-center mt-10 text-xl p-3 border-[#0E1D2B] border-4 text-black font-bold underline">
             Start Shopping Now!
           </p>
         </Link>
@@ -102,7 +102,9 @@ function RecommendedProducts({
     <div className="recommended-products relative">
       <div className="bg-[#212326] absolute top-0 left-0 w-full h-full background-grid-gray bg-[length:10vw_10vw]" />
       <div className="max-w-6xl mx-auto px-5 py-20 relative">
-        <h2 className="text-white text-3xl mb-10">Featured Products</h2>
+        <h2 className="text-white text-2xl mb-10 font-primary tracking-wider">
+          Featured Products
+        </h2>
         <Suspense fallback={<div>Loading...</div>}>
           <Await resolve={products}>
             {({products}) => (
@@ -118,7 +120,7 @@ function RecommendedProducts({
                       aspectRatio="1/1"
                       sizes="(min-width: 45em) 20vw, 50vw"
                     />
-                    <h4 className="text-white">{product.title}</h4>
+                    <h4 className="text-white font-bold">{product.title}</h4>
                     <small className="flex text-white gap-[3px]">
                       &#8369;
                       <Money
@@ -142,11 +144,12 @@ function RecommendedProducts({
 function Services() {
   return (
     <div className="max-w-6xl mx-auto px-5 py-20">
-      <h2 className="text-4xl mb-4 text-center md:text-left">
+      <h2 className="text-4xl mb-4 text-center md:text-left font-primary tracking-wider">
         Our Quality Services
       </h2>
       <p className="max-w-md mb-20 text-center md:text-left">
-        Install the Hydrogen channel and get access to Oxygen deployments
+        Elevate your car's performance and appearance with our top-tier car PMS
+        and auto detailing services
       </p>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2 w-full items-center flex flex-col text-center">
@@ -156,10 +159,10 @@ function Services() {
             height="100%"
             className="mb-10 drop-shadow-2xl"
           />
-          <h5 className="mb-5">Preventive Maintenance Schedule</h5>
+          <h5 className="mb-5 font-bold">Preventive Maintenance Schedule</h5>
           <p className="max-w-md">
-            Every commit gets its own preview deployment, defaulting to private
-            but easily made public
+            Stay ahead of car troubles with our Preventive Maintenance Schedule
+            service
           </p>
         </div>
         <div className="md:w-1/2 w-full mt-20 md:mt-0 items-center flex flex-col text-center">
@@ -169,10 +172,12 @@ function Services() {
             height="100%"
             className="mb-10 drop-shadow-2xl"
           />
-          <h5 className="mb-5">Auto Detailing (Interior & Deep Exterior)</h5>
+          <h5 className="mb-5 font-bold">
+            Auto Detailing (Interior & Deep Exterior)
+          </h5>
           <p className="max-w-md">
-            Tied directly to a branch, custom environments get their own
-            environment variables and a static URL
+            Revitalize your car's interior and exterior with our expert auto
+            detailing services.
           </p>
         </div>
       </div>
@@ -183,14 +188,15 @@ function Services() {
 function Brands() {
   return (
     <div className="relative max-w-6xl mx-auto px-5 flex md:gap-20 gap-10 py-20 md:flex-row flex-col">
-      <div className="md:w-[25%] w-full justify-center flex flex-col items-center md:items-start">
-        <h2 className="text-5xl text-black">Extend your build</h2>
+      <div className="md:w-[30%] w-full justify-center flex flex-col items-center md:items-start">
+        <h2 className="text-3xl text-black tracking-wider font-primary">
+          Trusted Car Brands
+        </h2>
         <p className="mb-6 text-center md:text-left">
-          Integrate with apps and platforms to enhance what your Hydrogen
-          storefront can do.
+          Explore Our Trusted Car Brands and Genuine Parts Selection.
         </p>
         <Link to={`/`}>
-          <p className="bg-[#FED550] border-4 border-black py-2 px-4 text-center">
+          <p className="bg-[#FED550] border-4 border-black py-2 px-4 text-center font-bold underline">
             Explore Hydro Apps
           </p>
         </Link>

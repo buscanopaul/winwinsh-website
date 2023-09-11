@@ -19,6 +19,22 @@ body {
   list-style: disc;
 }
 
+@font-face {
+  font-family: 'Druk';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../public/fonts/DrukWide-Heavy-Trial.otf');
+}
+
+.font-primary {
+  font-family: 'Druk';
+}
+
+aside header h3 {
+  font-family: 'Druk';
+  letter-spacing: 1px;
+}
+
 h1,
 h2,
 p {
