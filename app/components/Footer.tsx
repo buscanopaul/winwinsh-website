@@ -1,4 +1,4 @@
-import {useMatches, NavLink} from '@remix-run/react';
+import {NavLink, useMatches} from '@remix-run/react';
 import type {FooterQuery} from 'storefrontapi.generated';
 import Facebook from '../../public/facebook.png';
 import Instagram from '../../public/instagram.png';
@@ -39,19 +39,6 @@ export function Footer({menu}: FooterQuery) {
           <p className="text-white opacity-50 text-[10px]">
             &copy; 2023 WinWish Auto Shop
           </p>
-          <a
-            href="https://paulbuscano.vercel.app"
-            target="_blank"
-            className="underline flex flex-row group"
-          >
-            <p className="text-white opacity-50 text-[10px] underline group-hover:opacity-100 transition">
-              Built with
-            </p>
-            <p className="text-red-500 text-[10px] underline">&#9829;</p>
-            <p className="text-white opacity-50 text-[10px] underline group-hover:opacity-100 transition">
-              by Paul Buscano
-            </p>
-          </a>
           <p className="text-white opacity-50 text-[10px]">
             Inc. All Rights Reserved.
           </p>
