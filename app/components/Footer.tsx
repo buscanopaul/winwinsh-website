@@ -19,7 +19,7 @@ export function Footer({menu}: FooterQuery) {
           <div className="text-white flex flex-col items-center mb-20">
             <p className="text-[10px]">MONDAY - FRIDAY 7:00 AM - 7:00 PM</p>
             <p className="text-[10px]">
-              UNIT 10 NORTHCREST VILLAGE, BAGUMBONG CALOOCAN CITY
+              UNIT 10 NORTHWEST VILLAGE, BAGONGBAYAN MANILA CITY
             </p>
             <p className="text-[10px]">WINWISHAUTOSHOP@GMAIL.COM</p>
           </div>
